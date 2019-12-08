@@ -1,8 +1,8 @@
 import json
 from flask import request
 
-from . import create_app
-from .models import Cats, db
+from init import create_app
+from models import Cats, db
 
 app = create_app()
 @app.route('/', methods=['GET'])
@@ -43,5 +43,6 @@ def edit(cat_id):
     new_price = data['price']
     cat_to_update = Cats.query.filter_by(id=cat_id).all()[0]
     cat_to_update.price =  new_price
-    db.session.commit
-    return json.dumps('Edited'), 200
+    db.session.commit()
+    status_msg = 'Edited id:'+str(cat_id)+" name: "+str(cat_to_update.name)+" with new price "+str(cat_to_update.price)
+    return json.dumps(status_msg), 200
