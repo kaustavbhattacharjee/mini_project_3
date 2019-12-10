@@ -9,5 +9,16 @@ services:
     volumes:
       - db_volume:/var/lib/postgresql
 
+  db:
+    container_name: postgres2
+    build:
+      context: ./Docker
+      dockerfile: db.Dockerfile
+    volumes:
+      - db_volume2:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
 volumes:
   db_volume:
+  db_volume2:
