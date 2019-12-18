@@ -2,8 +2,9 @@
 import jwt
 import os
 import datetime
-from flask import json
+from flask import json, Response, request, g
 from ..models.UserModel import UserModel
+from functools import wraps
 
 
 class Auth():
@@ -32,6 +33,7 @@ class Auth():
         response=json.dumps({'error': 'error in generating user token'}),
         status=400
       )
+
 
   @staticmethod
   def decode_token(token):

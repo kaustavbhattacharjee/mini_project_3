@@ -13,14 +13,17 @@ def create():
     """
     Create User Function
     """
-    req_data = request.get_json()
-    data, error = user_schema.load(req_data)
+    req_data = request.get_json(force=True)
+    #print(req_data)
+    data= user_schema.load(req_data)
+    error=False
 
     if error:
         return custom_response(error, 400)
 
     # check if user already exist in the db
     user_in_db = UserModel.get_user_by_email(data.get('email'))
+    #print(user_in_db)
     if user_in_db:
         message = {'error': 'User already exist, please supply another email address'}
         return custom_response(message, 400)
@@ -28,7 +31,7 @@ def create():
     user = UserModel(data)
     user.save()
 
-    ser_data = user_schema.dump(user).data
+    ser_data = user_schema.dump(user)
 
 
     token = Auth.generate_token(ser_data.get('id'))
@@ -38,9 +41,11 @@ def create():
 
 @user_api.route('/login', methods=['POST'])
 def login():
-    req_data = request.get_json()
-
-    data, error = user_schema.load(req_data, partial=True)
+    req_data = request.get_json(force=True)
+    #print(req_data)
+    data= user_schema.load(req_data, partial=True)
+    error = False
+    #print(data)
 
     if error:
         return custom_response(error, 400)
@@ -49,6 +54,7 @@ def login():
         return custom_response({'error': 'you need email and password to sign in'}, 400)
 
     user = UserModel.get_user_by_email(data.get('email'))
+    #print(user)
 
     if not user:
         return custom_response({'error': 'invalid credentials'}, 400)
@@ -56,8 +62,8 @@ def login():
     if not user.check_hash(data.get('password')):
         return custom_response({'error': 'invalid credentials'}, 400)
 
-    ser_data = user_schema.dump(user).data
 
+    ser_data = user_schema.dump(user)
     token = Auth.generate_token(ser_data.get('id'))
 
     return custom_response({'jwt_token': token}, 200)
