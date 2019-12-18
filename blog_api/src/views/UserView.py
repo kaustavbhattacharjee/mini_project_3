@@ -108,13 +108,14 @@ def update():
     Update me
     """
     req_data = request.get_json()
-    data, error = user_schema.load(req_data, partial=True)
+    data= user_schema.load(req_data, partial=True)
+    error = False
     if error:
         return custom_response(error, 400)
 
     user = UserModel.get_one_user(g.user.get('id'))
     user.update(data)
-    ser_user = user_schema.dump(user).data
+    ser_user = user_schema.dump(user)
     return custom_response(ser_user, 200)
 
 
