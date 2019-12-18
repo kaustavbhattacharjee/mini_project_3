@@ -1,6 +1,6 @@
 # /src/views/UserView
 
-from flask import request, json, Response, Blueprint
+from flask import request, json, Response, Blueprint, g
 from ..models.UserModel import UserModel, UserSchema
 from ..shared.Authentication import Auth
 
@@ -136,5 +136,5 @@ def get_me():
     Get me
     """
     user = UserModel.get_one_user(g.user.get('id'))
-    ser_user = user_schema.dump(user).data
+    ser_user = user_schema.dump(user)
     return custom_response(ser_user, 200)
