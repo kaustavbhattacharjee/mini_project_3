@@ -33,8 +33,8 @@ def create():
 
     ser_data = user_schema.dump(user)
 
-
     token = Auth.generate_token(ser_data.get('id'))
+
 
     return custom_response({'jwt_token': token}, 201)
 
@@ -65,7 +65,6 @@ def login():
 
     ser_data = user_schema.dump(user)
     token = Auth.generate_token(ser_data.get('id'))
-
     return custom_response({'jwt_token': token}, 200)
 
 
@@ -85,6 +84,7 @@ def custom_response(res, status_code):
         response=json.dumps(res),
         status=status_code
     )
+
 
 
 @user_api.route('/<int:user_id>', methods=['GET'])
