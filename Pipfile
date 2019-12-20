@@ -18,6 +18,7 @@ pyjwt = "*"
 pytest-cov = "*"
 pytest = "*"
 gunicorn = "*"
+importlib-metadata = "*"
 
 [requires]
 python_version = "3.8"
