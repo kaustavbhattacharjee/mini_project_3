@@ -14,6 +14,7 @@ def create_app(env_name):
 
     # app initiliazation
     app = Flask(__name__)
+    app.app_context().push()
 
     app.config.from_object(app_config[env_name])
     # initializing bcrypt
