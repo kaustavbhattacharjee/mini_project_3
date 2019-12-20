@@ -5,6 +5,8 @@ python:
 services:
     - postgresql
 env:
+    - FLASK_ENV=development
+    - JWT_SECRET_KEY=hhgaghhgsdhdhdd
     - DATABASE_TEST_URL=postgresql+psycopg2://test:password@localhost:5432/blog_test_db
 before_script:
     - psql -c "create user test with password 'password';" -U postgres
