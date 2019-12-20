@@ -32,7 +32,7 @@ class UsersTest(unittest.TestCase):
         json_data = json.loads(res.data)
         self.assertTrue(json_data.get('jwt_token'))
         self.assertEqual(res.status_code, 201)
-'''
+
     def test_user_creation_with_existing_email(self):
         """ test user creation with already existing email"""
         res = self.client().post('/api/v1/users/', headers={'Content-Type': 'application/json'},
@@ -165,6 +165,6 @@ class UsersTest(unittest.TestCase):
             db.session.remove()
             db.drop_all()
 
-'''
+
 if __name__ == "__main__":
     unittest.main()
