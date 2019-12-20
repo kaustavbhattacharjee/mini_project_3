@@ -165,6 +165,6 @@ class UsersTest(unittest.TestCase):
             db.session.remove()
             db.drop_all()
 
-
+#This code will execute it
 if __name__ == "__main__":
     unittest.main()
