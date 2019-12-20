@@ -4,6 +4,8 @@ python:
     - "3.6"
 services:
     - postgresql
+env:
+    - DATABASE_TEST_URL=postgresql+psycopg2://test:password@localhost:5432/blog_api_db
 before_script:
     - psql -c 'create database blog_test_db;' -U postgres
 install:
